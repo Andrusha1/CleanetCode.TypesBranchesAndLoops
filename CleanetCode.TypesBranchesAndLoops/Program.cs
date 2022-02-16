@@ -40,7 +40,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 else if (userNumber == neededNum) //проверяем равно ли число пользователя загаданному
                 {
                     countTry++;
-                    Console.WriteLine($"Поздравляем, вы угадали нужное число с {countTry} попыток!");
+                    Console.WriteLine($"Поздравляем, вы угадали нужное число! Затраченное количество попыток: {countTry}.");
                 }
                 else if (userNumber < neededNum) //число пользователя меньше
                 {
