@@ -15,7 +15,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             bool isWin = false; //победил ли пользователь
             bool isIntNumber = false; //число ли ввел пользователь
             int countTry = 0; //счетчик попыток
-
+            
             Console.WriteLine("Здравствуйте, как вас зовут?");
             userName = Console.ReadLine();
             Console.WriteLine($"{userName}, я загадал для вас число от 1 до 100, попробуйте угадать.");
@@ -43,6 +43,11 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     Console.WriteLine($"Число {userNumber} больше загаданного.");
                     countTry++;
                 }
+                else if (Console.ReadKey().Key == ConsoleKey.Escape) //выход из программы в момент угадывания числа
+                {
+                    Environment.Exit(0);
+                }
+                    
             }
         }
     }
