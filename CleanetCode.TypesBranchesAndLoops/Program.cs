@@ -18,6 +18,11 @@ namespace MyApp // Note: actual namespace depends on the project name.
             
             Console.WriteLine("Здравствуйте, как вас зовут?");
             userName = Console.ReadLine();
+            while(String.IsNullOrWhiteSpace(userName))
+            {
+                Console.WriteLine("Имя не может быть пустым начинаться с пробела");
+                userName = Console.ReadLine();
+            }
             Console.WriteLine($"{userName}, я загадал для вас число от 1 до 100, попробуйте угадать.");
             Console.WriteLine("Введите ваше число: ");
 
@@ -25,23 +30,27 @@ namespace MyApp // Note: actual namespace depends on the project name.
             {
                 string userInput = Console.ReadLine();
                 isIntNumber = int.TryParse(userInput, out userNumber); //Попытка перевести ввод пользователя в число
+
                 if (isIntNumber == false) //проверка на ввод числа
                     Console.WriteLine("Вы ввели не число.");
+                
                 else if (userNumber < 1 || userNumber > 100) //проверка на выход за пределы
                     Console.WriteLine("Число не может быть меньше 1 и больше 100.");
+
                 else if (userNumber == neededNum) //проверяем равно ли число пользователя загаданному
                 {
+                    countTry++;
                     Console.WriteLine($"Поздравляем, вы угадали нужное число с {countTry} попыток!");
                 }
                 else if (userNumber < neededNum) //число пользователя меньше
                 {
-                    Console.WriteLine($"Число {userNumber} меньше загаданного.");
                     countTry++;
+                    Console.WriteLine($"Число {userNumber} меньше загаданного.");
                 }
                 else if (userNumber > neededNum) //число пользователя больше
                 {
-                    Console.WriteLine($"Число {userNumber} больше загаданного.");
                     countTry++;
+                    Console.WriteLine($"Число {userNumber} больше загаданного.");
                 }
                 else if (Console.ReadKey().Key == ConsoleKey.Escape) //выход из программы в момент угадывания числа
                 {
