@@ -20,7 +20,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             userName = Console.ReadLine();
             while(String.IsNullOrWhiteSpace(userName))
             {
-                Console.WriteLine("Имя не может быть пустым начинаться с пробела");
+                Console.WriteLine("Имя не может быть пустым или состоять из пробелов");
                 userName = Console.ReadLine();
             }
             Console.WriteLine($"{userName}, я загадал для вас число от 1 до 100, попробуйте угадать.");
@@ -30,17 +30,25 @@ namespace MyApp // Note: actual namespace depends on the project name.
             {
                 string userInput = Console.ReadLine();
                 isIntNumber = int.TryParse(userInput, out userNumber); //Попытка перевести ввод пользователя в число
-
                 if (isIntNumber == false) //проверка на ввод числа
                     Console.WriteLine("Вы ввели не число.");
-                
                 else if (userNumber < 1 || userNumber > 100) //проверка на выход за пределы
                     Console.WriteLine("Число не может быть меньше 1 и больше 100.");
-
                 else if (userNumber == neededNum) //проверяем равно ли число пользователя загаданному
                 {
                     countTry++;
                     Console.WriteLine($"Поздравляем, вы угадали нужное число! Затраченное количество попыток: {countTry}.");
+                    isWin = true;
+                    Console.WriteLine("Хотите попробовать еще раз?");
+                    if (Console.ReadLine().ToLower().Contains("да")) //рестарт
+                    {
+                        isWin = false;
+                        neededNum = rnd.Next(1, 100);
+                        countTry = 0;
+                        Console.WriteLine("Введите ваше число: ");
+                    }
+                    else
+                        Console.WriteLine("Спасибо за игру, ждем следующих попыток!");
                 }
                 else if (userNumber < neededNum) //число пользователя меньше
                 {
@@ -52,11 +60,6 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     countTry++;
                     Console.WriteLine($"Число {userNumber} больше загаданного.");
                 }
-                else if (Console.ReadKey().Key == ConsoleKey.Escape) //выход из программы в момент угадывания числа
-                {
-                    Environment.Exit(0);
-                }
-                    
             }
         }
     }
