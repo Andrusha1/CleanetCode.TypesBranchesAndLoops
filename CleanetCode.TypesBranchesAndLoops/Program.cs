@@ -34,31 +34,38 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     Console.WriteLine("Вы ввели не число.");
                 else if (userNumber < 1 || userNumber > 100) //проверка на выход за пределы
                     Console.WriteLine("Число не может быть меньше 1 и больше 100.");
-                else if (userNumber == neededNum) //проверяем равно ли число пользователя загаданному
+                else if(isIntNumber == true)
                 {
                     countTry++;
-                    Console.WriteLine($"Поздравляем, вы угадали нужное число! Затраченное количество попыток: {countTry}.");
-                    isWin = true;
-                    Console.WriteLine("Хотите попробовать еще раз?");
-                    if (Console.ReadLine().ToLower().Contains("да")) //рестарт
+                    if (userNumber == neededNum) //проверяем равно ли число пользователя загаданному
                     {
-                        isWin = false;
-                        neededNum = rnd.Next(1, 100);
-                        countTry = 0;
-                        Console.WriteLine("Введите ваше число: ");
+                        Console.WriteLine($"Поздравляем, вы угадали нужное число! Затраченное количество попыток: {countTry}.");
+                        Console.WriteLine("Хотите попробовать еще раз?");
+                        bool restart = false;
+                        while (restart == false)
+                        {
+                            string userAnswer = Console.ReadLine().ToLower();
+                            if (userAnswer.Contains("да")) //рестарт
+                            {
+                                isWin = false;
+                                neededNum = rnd.Next(1, 100);
+                                countTry = 0;
+                                restart = true;
+                                Console.WriteLine("Введите ваше число: ");
+                            }
+                            else if (userAnswer.Contains("нет"))
+                            {
+                                Console.WriteLine("Спасибо за игру, ждем следующих попыток!");
+                                Environment.Exit(0);
+                            }
+                            else
+                                Console.WriteLine("Введите да или нет");
+                        } 
                     }
-                    else
-                        Console.WriteLine("Спасибо за игру, ждем следующих попыток!");
-                }
-                else if (userNumber < neededNum) //число пользователя меньше
-                {
-                    countTry++;
-                    Console.WriteLine($"Число {userNumber} меньше загаданного.");
-                }
-                else if (userNumber > neededNum) //число пользователя больше
-                {
-                    countTry++;
-                    Console.WriteLine($"Число {userNumber} больше загаданного.");
+                    else if (userNumber < neededNum) //число пользователя меньше
+                        Console.WriteLine($"Число {userNumber} меньше загаданного.");
+                    else if (userNumber > neededNum) //число пользователя больше
+                        Console.WriteLine($"Число {userNumber} больше загаданного.");
                 }
             }
         }
